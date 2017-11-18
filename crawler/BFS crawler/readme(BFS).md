@@ -1,39 +1,38 @@
-File:
+### File:
 - BFScrawler.py
 - BFSTop10.py
 
-How to run:
+### How to run:
 - install all modules used in the program.
 - Using terminal: run python BFScrawler.py
 - Or use other tools like sublime, etc. copy all code and run.
 - Change the query you want to search and page limit No. in the last two lines of the code.
 
-
-About the parameters:
+### About the parameters:
 - there are several parameters can be changed for a certain puropose crawling (e.g. for wider crawling, for deeper crawling, for faster crawling, etc.)
 
 - All parameters have their default value, the program can be run without modify anything, below is the description if you want to change one or several of them:
 	
-* getStartPage(query, topN)
-	Line 291
+	`getStartPage(query, topN)`
+	(Line 291)
 	This is where to change the string that need to be queried and how many start pages need to have.
 
-* findUrl(pageLimit)
-	Line 292
+	`findUrl(pageLimit)`
+	(Line 292)
 	This is the function which starts the crawling work after get the top N start pages.
 
 
-* self.timeout = 3
-	Line 22
+	`self.timeout = 3`
+	(Line 22)
 	This is where the timeout setting located. In line 92 and 179, a timeout (seconds) should be set in case of no response or slow response. If there isn't enough page after crawling, probably because the timeout is too short. Some pages have lower response than others but still may contain important informantions(links).
 
-* self.siteLimit = float('Inf')
-	Line 36
+	`self.siteLimit = float('Inf')`
+	(Line 36)
 	This is the limit of page number from each same site. For now, there is no limit. However, if the query string is something popular and wellknown, for example "Trump", there would be so many website about this query. In this kind of situation, a limit should be set by changing float('Inf') to a Integer like 20 or 50.
 	In some cases, if the query string is not that popular, the siteLimit should be set to unlimited, or there could be no pages to crawl before reaching 1000.
 
-* self.linkLimit_PerPage = 30
-	Line 43
+	`self.linkLimit_PerPage = 30`
+	(Line 43)
 	This parameter is for preventing too much links are crawled in a same page during DFS crawling. Once linkCounter reach this value, linkCounter will be set to 0 again, then next url in the waiting list will be crawled next.
 
 

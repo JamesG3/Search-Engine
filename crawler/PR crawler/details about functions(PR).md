@@ -95,8 +95,3 @@ https://gist.github.com/diogojc/1338222/84d767a68da711a154778fb1d00e772d65322187
 https://docs.python.org/2/library/urllib.html
 https://stackoverflow.com/questions/5909/get-size-of-a-file-before-downloading-in-python
 
-
-### Special features:
-- Self manually timeout: there is a timeout parameter in requests.get() and urllib2.urlopen(), but other functions may still be stucked by some reason, so a timeout feature which can be used anywhere is useful to prevent this kind of situations.
-- Recalculate triggers: there are two recalculating triggers, one is based on the visited pages, the other is based on the waiting list. This two triggers make sure the content in the waiting list.
-- PRTop10.py can get the top 10 Or top N from the output csv file.
