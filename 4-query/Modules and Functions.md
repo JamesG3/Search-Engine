@@ -3,6 +3,7 @@
 1. `getSnippet(urlList, termList)`
 	This function open a thread for each url in the urlList. In each thread, calling function `fetch_url(url)` to get the snippet into snippet dictionary. After all threads end, return the snippet dictionary.
 	The snippet dictionary’s key is url, value is the generated snippet.
+
 2. `fetch_url(url)`
 	This function will open the input url using method `urllib.urlopen()`, then download the plaintext content from this page. And generate the snippet base on the terms in the termList. After each term is generated, add this term to snippet dictionary.
 
@@ -10,16 +11,22 @@
 - **Global variables:**
 1. `lexicon` - `term: head, tail, # of docs`
 	A dictionary stores the lexicon information for each term.
+
 2. `pagetable` - `docid: position for url line`
 	A dictionary stores the docid and the it’s position in the pagetable file.
+
 3. `iiLists` - `[all data for term1], [all data for term2]`
 	For each query, store whole compressed inverted index for each term, in the order same as `termList`.
+
 4. `termList` - `term1, term2, .. `
 	Store the queried terms in the **ASC order of their original inverted index length** (number of pages contain this term). Prepare for the injunctive traverse.
+
 5. `lexiconList` - `[term1's lexicon], [term2's],... `
 	Store the lexicon information for each queried term, in the same order as `termList`.
+
 6. `metaDataList` - `[[t1's block1 meta], [t1's block2 meta]], [[t2's],[t2's]]`
 	Store all metadata for all queried terms. `metaDataList[i]` contains headers for all blocks corresponding to term i, the structure is like the example above.
+
 7. `iiCache` - `[[current SUM, cursor], [the decompressed chunk]]`
 	This data structure is a dictionary. Store the current decompressed chunk of each term. So that the chunk will not be decompressed once and once again while processing. The `[current SUM, cursor]` record the location and docid during reading.
 8. `lp` - `[block#, chunk#, iiPosition], [block#, chunk#, iiPosition]`
@@ -45,14 +52,19 @@
 	Get the *docid* equal or larger than *did* for term i. The *iscached* is a bool value. If *iscached* is 0, means a new chunk should be decompressed and loaded into cache. If it is 1, traverse the inverted index directly from *iiCache*.
 9. `nextGEQ(i, did) `
 	Work with function `getnexGEQ()` together to get the the *docid* equal or larger than *did* for term i. Interactive with the global data structure *lp* to read and store the current block and chunk position. Find next did until traverse all blocks for term i. If cannot find *docid* equal or larger than *did*, return None.
+
 10. `getFreq(i, did) `
 	Get frequency for term i in the document *did*. Can get directly from *iiCache*.
+
 11. `PgScore(did) `
 	Calculate the BM25 and cosine score for document *did*.
+
 12. `getDocRankList()`
 	Use injunctive (and) to traverse all inverted index for each term, find those documents contain all these terms. Calculate scores for the list of *did*, return the top 10 *did* and their scores.
+
 13. `getUrl(docRankList)`
 	For each url in the input list, use `seek()` to get urls by reading pagetable file.
+
 14. `main()`
 	- Call `lexPrepare()` and `pagetbPrepare()` to load these data structures into memory. It might take a minute.
 	- Then start the input interface, get user’s query, split the query with space then pass this *queryList* to function `checkValid(queryList)`. (If the return value is 0, it means there are some special characters in the input. Print the message and back to the input interface.)
