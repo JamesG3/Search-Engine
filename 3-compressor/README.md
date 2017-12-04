@@ -5,6 +5,7 @@ This file is used to compress the original inverted index structure, using Simpl
 ***S9Compressor.py***
 This file contains Simple 9 class, includes two method, *encoder* and *decoder*. We will use *encoder* for 
 the compress part.
+
 ***Lexicon.txt***
 This lexicon file is generated from last assignment (inverted index builder), store the head position, tail position and the size of inverted index for each term.
 
